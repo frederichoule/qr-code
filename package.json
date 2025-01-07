@@ -2,7 +2,7 @@
   "name": "@bitjson/qr-code",
   "version": "1.0.2",
   "description": "QR Code Web Component",
-  "module": "dist/esm/index.js",
+  "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
@@ -19,7 +19,7 @@
     "test.watch": "jest --watch"
   },
   "devDependencies": {
-    "@stencil/core": "^0.10.2",
+    "@stencil/core": "^1.17.4",
     "@types/jest": "^21.1.1",
     "jest": "^21.2.1",
     "just-animate": "^2.5.0",

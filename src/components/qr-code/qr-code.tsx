@@ -7,6 +7,7 @@ import {
   Method,
   State,
   Watch,
+  h,
 } from '@stencil/core';
 
 import { addPlugin, animate } from 'just-animate';
@@ -83,14 +84,14 @@ export class BpQRCode {
   }
 
   @Method()
-  animateQRCode(animation?: AnimationPreset | QRCodeAnimation) {
+  async animateQRCode(animation?: AnimationPreset | QRCodeAnimation) {
     this.executeAnimation(
       typeof animation === 'string' ? getAnimationPreset(animation) : animation
     );
   }
 
   @Method()
-  getModuleCount() {
+  async getModuleCount() {
     return this.moduleCount;
   }
 
