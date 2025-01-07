@@ -14,10 +14,11 @@ https://user-images.githubusercontent.com/904007/221692053-1f4ab516-0f63-40e4-b1
 
 # Usage
 
-Import `<qr-code>` using your build system or framework (e.g. `npm install @bitjson/qr-code`), or use the standalone script in your HTML `<head>` element:
+Import `<qr-code>` using your build system or framework (e.g. `npm install @bitjson/qr-code`), or use the standalone scripts in your HTML `<head>` element (you can add both of these for fallback on older browsers):
 
 ```html
-<script src="https://unpkg.com/@bitjson/qr-code@1.0.2/dist/qr-code.js"></script>
+<script type="module" src="https://unpkg.com/@bitjson/qr-code@2.0.0/dist/esm/qr-code.mjs"></script>
+<script nomodule src="https://unpkg.com/@bitjson/qr-code@2.0.0/dist/qr-code.js"></script>
 ```
 
 Then use the component anywhere in your HTML `<body>` element:
