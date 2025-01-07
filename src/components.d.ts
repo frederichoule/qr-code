@@ -19,6 +19,10 @@ export namespace Components {
         "squares": boolean;
     }
 }
+export interface QrCodeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLQrCodeElement;
+}
 declare global {
     interface HTMLQrCodeElement extends Components.QrCode, HTMLStencilElement {
     }
@@ -35,7 +39,7 @@ declare namespace LocalJSX {
         "contents"?: string;
         "maskXToYRatio"?: number;
         "moduleColor"?: string;
-        "onCodeRendered"?: (event: CustomEvent<any>) => void;
+        "onCodeRendered"?: (event: QrCodeCustomEvent<any>) => void;
         "positionCenterColor"?: string;
         "positionRingColor"?: string;
         "protocol"?: string;

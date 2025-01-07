@@ -56,6 +56,43 @@ Here's an example in pure HTML using most features:
 </script>
 ```
 
+## Using with React
+
+```tsx
+import { applyPolyfills, defineCustomElements } from "@bitjson/qr-code/dist/loader";
+
+applyPolyfills().then(() => {
+  defineCustomElements();
+});
+
+export default function Home() {
+  return (
+    <div>
+      <main>
+        <qr-code
+            contents="Hello world"
+            module-color="white"
+            position-ring-color="white"
+            position-center-color="white"
+          />
+      </main>
+    </div>
+  );
+}
+
+// types.d.ts (when using with TSX)
+import { JSX as QrCodeJSX } from "@bitjson/qr-code";
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'qr-code': QrCodeJSX.QrCode;
+    }
+  }
+}
+```
+
+
 ## Animations
 
 Animate in, animate on user interactions like URL hits or detected payments, and/or animate out when the QR code interaction is complete.
