@@ -50,8 +50,8 @@ export class BpQRCode {
    * The first update must run after load to query the created shadowRoot for
    * slotted nodes.
    */
-  componentWillLoad() {
-    this.data = this.generateQRCodeSVG(this.contents, false);
+  componentDidLoad() {
+    this.updateQR();
   }
 
   componentDidUpdate() {
@@ -77,7 +77,9 @@ export class BpQRCode {
         ? true
         : false
       : realSlot
-      ? realSlot.assignedNodes().length > 0
+      ? typeof realSlot.assignedNodes === 'function'
+        ? realSlot.assignedNodes().length > 0
+        : realSlot.childNodes.length > 0  // Fallback for Jest jsdom environment
       : false;
 
     this.data = this.generateQRCodeSVG(this.contents, hasSlot);
@@ -362,11 +364,7 @@ export class BpQRCode {
             data-column={this.moduleCount / 2}
             data-row={this.moduleCount / 2}
           >
-            <slot name="icon" ref={(el: HTMLSlotElement) => {
-                el.addEventListener('slotchange', () => {
-                    this.updateQR();
-                });
-            }}/>
+            <slot name="icon"/>
           </div>
         </div>
         <div innerHTML={this.data} />
