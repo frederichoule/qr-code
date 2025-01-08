@@ -11,11 +11,11 @@ import {
 } from '@stencil/core';
 
 import { addPlugin, animate } from 'just-animate';
-import { waapiPlugin } from 'just-animate/lib.es2015/web';
+import { waapiPlugin } from 'just-animate/lib/web';
 addPlugin(waapiPlugin);
 
 // Comment below and line 149 build for production:
-import { player } from 'just-animate/lib.es2015/tools';
+import { player } from 'just-animate/lib/tools';
 
 import qrcode from 'qrcode-generator';
 import {
@@ -50,8 +50,8 @@ export class BpQRCode {
    * The first update must run after load to query the created shadowRoot for
    * slotted nodes.
    */
-  componentDidLoad() {
-    this.updateQR();
+  componentWillLoad() {
+    this.data = this.generateQRCodeSVG(this.contents, false);
   }
 
   componentDidUpdate() {
@@ -247,16 +247,18 @@ export class BpQRCode {
       coordinateShift: number
     ) {
       return `
-      <path class="position-ring" fill="${ringFill}" data-column="${
-        x - margin
-      }" data-row="${y - margin}" d="M${x - coordinateShift} ${
-        y - 0.5 - coordinateShift
-      }h6s.5 0 .5 .5v6s0 .5-.5 .5h-6s-.5 0-.5-.5v-6s0-.5 .5-.5zm.75 1s-.25 0-.25 .25v4.5s0 .25 .25 .25h4.5s.25 0 .25-.25v-4.5s0-.25 -.25 -.25h-4.5z"/>
-      <path class="position-center" fill="${centerFill}" data-column="${
-        x - margin + 2
-      }" data-row="${y - margin + 2}" d="M${x + 2 - coordinateShift} ${
-        y + 1.5 - coordinateShift
-      }h2s.5 0 .5 .5v2s0 .5-.5 .5h-2s-.5 0-.5-.5v-2s0-.5 .5-.5z"/>
+      <path
+        class="position-ring"
+        fill="${ringFill}"
+        data-column="${x - margin}" 
+        data-row="${y - margin}" 
+        d="M${x - coordinateShift} ${y - 0.5 - coordinateShift}h6s.5 0 .5 .5v6s0 .5-.5 .5h-6s-.5 0-.5-.5v-6s0-.5 .5-.5zm.75 1s-.25 0-.25 .25v4.5s0 .25 .25 .25h4.5s.25 0 .25-.25v-4.5s0-.25 -.25 -.25h-4.5z"/>
+      <path
+        class="position-center"
+        fill="${centerFill}"
+        data-column="${x - margin + 2}"
+        data-row="${y - margin + 2}"
+        d="M${x + 2 - coordinateShift} ${y + 1.5 - coordinateShift}h2s.5 0 .5 .5v2s0 .5-.5 .5h-2s-.5 0-.5-.5v-2s0-.5 .5-.5z"/>
       `;
     }
 
@@ -360,7 +362,11 @@ export class BpQRCode {
             data-column={this.moduleCount / 2}
             data-row={this.moduleCount / 2}
           >
-            <slot name="icon" />
+            <slot name="icon" ref={(el: HTMLSlotElement) => {
+                el.addEventListener('slotchange', () => {
+                    this.updateQR();
+                });
+            }}/>
           </div>
         </div>
         <div innerHTML={this.data} />

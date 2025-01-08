@@ -59,7 +59,7 @@ Here's an example in pure HTML using most features:
 ## Using with React
 
 ```tsx
-import { applyPolyfills, defineCustomElements } from "@bitjson/qr-code/dist/loader";
+import { applyPolyfills, defineCustomElements } from "@bitjson/qr-code/loader";
 
 applyPolyfills().then(() => {
   defineCustomElements();

@@ -15,13 +15,14 @@
     "watch:prod": "stencil build --watch --serve --prod",
     "serve": "stencil-dev-server",
     "start": "npm run watch",
-    "test": "jest",
-    "test.watch": "jest --watch"
+    "test": "stencil test --spec",
+    "test.watch": "stencil test --spec --watchAll"
   },
   "devDependencies": {
     "@stencil/core": "^2.22.3",
-    "@types/jest": "^21.1.1",
-    "jest": "^21.2.1",
+    "@types/jest": "^27.5.2",
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
     "just-animate": "^2.5.0",
     "qrcode-generator": "^1.4.0"
   },
@@ -33,18 +34,5 @@
   "bugs": {
     "url": "https://github.com/bitjson/qr-code"
   },
-  "homepage": "https://qr.bitjson.com",
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "jsx"
-    ]
-  }
+  "homepage": "https://qr.bitjson.com"
 }
