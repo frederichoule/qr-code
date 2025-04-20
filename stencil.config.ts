@@ -5,10 +5,25 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
+      esmLoaderPath: '../loader',
+    },
+    {
+      type: 'dist-custom-elements',
     },
     {
       type: 'www',
       serviceWorker: false,
     },
   ],
+  buildEs5: false,
+  extras: {
+    cssVarsShim: false,
+    dynamicImportShim: false,
+    shadowDomShim: false,
+    safari10: false,
+    scriptDataOpts: false,
+    appendChildSlotFix: false,
+    cloneNodeFix: false,
+    slotChildNodesFix: false,
+  },
 };
