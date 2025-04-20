@@ -8,7 +8,10 @@ export const config: Config = {
       esmLoaderPath: '../loader',
     },
     {
-      type: 'dist-custom-elements-bundle',
+      type: 'dist-custom-elements',
+      generateTypeDeclarations: true,
+      autoDefineCustomElements: true,
+      includeGlobalScripts: true,
     },
     {
       type: 'www',
