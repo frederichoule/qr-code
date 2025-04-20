@@ -4476,6 +4476,7 @@ function defineCustomElement$1() {
       break;
   } });
 }
+defineCustomElement$1();
 
 const QrCode = BpQRCode;
 const defineCustomElement = defineCustomElement$1;

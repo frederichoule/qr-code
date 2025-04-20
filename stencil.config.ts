@@ -11,6 +11,7 @@ export const config: Config = {
       type: 'dist-custom-elements',
       dir: 'dist/components',
       includeGlobalScripts: true,
+      autoDefineCustomElements: true,
     },
     {
       type: 'www',
