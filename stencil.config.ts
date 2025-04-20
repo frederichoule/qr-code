@@ -9,6 +9,8 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
+      dir: 'dist/components',
+      includeGlobalScripts: true,
     },
     {
       type: 'www',
