@@ -1,4 +1,5 @@
-import { proxyCustomElement, HTMLElement, createEvent, h } from '@stencil/core/internal/client';
+import { HTMLElement, createEvent, h, proxyCustomElement } from '@stencil/core/internal/client';
+export { setAssetPath, setPlatformOptions } from '@stencil/core/internal/client';
 
 const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 const uuid = () => s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
@@ -4241,7 +4242,7 @@ const getAnimationPreset = (name) => {
 const qrCodeCss = ":host{display:block;contain:content}#qr-container{position:relative}#icon-container{position:absolute;width:100%;height:100%;display:flex;align-items:center;justify-content:center}";
 
 addPlugin(web.waapiPlugin);
-const BpQRCode = /*@__PURE__*/ proxyCustomElement(class extends HTMLElement {
+const BpQRCode = class extends HTMLElement {
   constructor() {
     super();
     this.__registerHost();
@@ -4450,35 +4451,19 @@ const BpQRCode = /*@__PURE__*/ proxyCustomElement(class extends HTMLElement {
     "squares": ["updateQR"]
   }; }
   static get style() { return qrCodeCss; }
-}, [1, "qr-code", {
-    "contents": [1],
-    "protocol": [1],
-    "moduleColor": [1, "module-color"],
-    "positionRingColor": [1, "position-ring-color"],
-    "positionCenterColor": [1, "position-center-color"],
-    "maskXToYRatio": [2, "mask-x-to-y-ratio"],
-    "squares": [4],
-    "data": [32],
-    "moduleCount": [32],
-    "animateQRCode": [64],
-    "getModuleCount": [64]
-  }]);
-function defineCustomElement$1() {
-  if (typeof customElements === "undefined") {
-    return;
-  }
-  const components = ["qr-code"];
-  components.forEach(tagName => { switch (tagName) {
-    case "qr-code":
-      if (!customElements.get(tagName)) {
-        customElements.define(tagName, BpQRCode);
+};
+
+const QrCode = /*@__PURE__*/proxyCustomElement(BpQRCode, [1,"qr-code",{"contents":[1],"protocol":[1],"moduleColor":[1,"module-color"],"positionRingColor":[1,"position-ring-color"],"positionCenterColor":[1,"position-center-color"],"maskXToYRatio":[2,"mask-x-to-y-ratio"],"squares":[4],"data":[32],"moduleCount":[32]}]);
+const defineCustomElements = (opts) => {
+  if (typeof customElements !== 'undefined') {
+    [
+      QrCode
+    ].forEach(cmp => {
+      if (!customElements.get(cmp.is)) {
+        customElements.define(cmp.is, cmp, opts);
       }
-      break;
-  } });
-}
-defineCustomElement$1();
+    });
+  }
+};
 
-const QrCode = BpQRCode;
-const defineCustomElement = defineCustomElement$1;
-
-export { QrCode, defineCustomElement };
+export { QrCode, defineCustomElements };
